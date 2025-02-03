@@ -48,6 +48,7 @@ public class aoc2024_d1 {
         Collections.sort(listLeft, Comparator.reverseOrder());
         Collections.sort(listRight, Comparator.reverseOrder());
 
+        //// d1 step_1
         // distance list
         List<Integer> distancelist = new ArrayList();
         for (int i = 0; i< listLeft.size();i++){
@@ -64,6 +65,36 @@ public class aoc2024_d1 {
 
         System.out.println(sum);
 
+        ////d1 step_2
+        //cout appearence times
+        // Loop through each string in list2 and count its occurrences in list1
+        List <Integer> appearanceList = new ArrayList<>();
+        for (String str : listLeft) {
+            int count = 0;
+            for (String s : listRight) {
+                if (s.equals(str)) {
+                    count++;
+                }
+            }
+            appearanceList.add(count);
+        }
+
+        // muliti
+        List<Integer> appearMutilist = new ArrayList();
+        for (int i = 0; i < listLeft.size(); i++) {
+            int leftvalue = Integer.parseInt(listLeft.get(i));
+            int appearMutilistvalue = leftvalue*(appearanceList.get(i));
+            appearMutilist.add(appearMutilistvalue);
+        }
+
+
+        // sum
+        sum = 0;
+        for (int num : appearMutilist) {
+            sum += num; // Add each number to sum
+        }
+
+        System.out.println(sum);
 
     }
 }
