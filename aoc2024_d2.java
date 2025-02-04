@@ -57,7 +57,7 @@ public class aoc2024_d2 {
             System.out.println(line);
         }
 
-        ////2024_d1_step_1
+        ////2024_d2_step_1
         // lineEleList
         List<List<Integer>> lineEleList = new ArrayList<>();
         for (String line: exportStringList){
@@ -87,27 +87,6 @@ public class aoc2024_d2 {
         int j = 0;
         for (List<Integer> elem: incdiscList){
             int safe = 0;
-            //for (int i = 0; i < elem.size(); i++){
-            //    if(Math.abs(elem.get(i))>3||Math.abs(elem.get(i))<1){
-            //        safe = 0;
-            //        System.out.println("incdiscList unsafe: " + (j+1));
-            //        break;
-            //    }
-            //    else{
-            //        if (i == 0) 
-            //            continue;
-            //        else{
-            //            if((elem.get(i)>0 && (elem.get(i-1)>0))||(elem.get(i)<0 && (elem.get(i-1)<0))){
-            //                safe = 1;
-            //            }
-            //            else {
-            //                safe = 0;
-            //                System.out.println("incdiscList unsafe: " + (j + 1));
-            //                break;
-            //            }
-            //        }
-            //    }
-            //}
             safe = SafeCheck(elem);
             safeList.add(safe);
         }
@@ -124,7 +103,7 @@ public class aoc2024_d2 {
 
         System.out.println(sum);
 
-        //// 2024_d1_step_2
+        //// 2024_d2_step_2
         j = 0;
         safeList.clear();
         for (int k = 0; k < incdiscList.size(); k++) {
