@@ -1,6 +1,6 @@
 
 // read
-import aoc_2024.aocFunctions;
+import aoc_2024_src.aocFunctions;
 
 import java.io.File;
 import java.nio.file.*;

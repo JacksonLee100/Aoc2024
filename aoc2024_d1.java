@@ -1,9 +1,7 @@
 
 // read
-import java.nio.file.*;
+import aoc_2024_src.aocFunctions;
 import java.io.File;
-import java.io.IOException;
-// import java.io.File;
 
 // regular expr
 //import java.util.regex;
@@ -17,21 +15,16 @@ import java.util.Comparator;
 import java.util.List;
 
 public class aoc2024_d1 {
-    
-    private static List<String> readFile (String i_path, List<String> o_StringList){
-        Path filePath = Paths.get(i_path);
-        try{
-        o_StringList = Files.readAllLines(filePath);}
-        catch (IOException e) {
-        e.printStackTrace();
-        }
-        return o_StringList;
-    }
 
     public static void main(String[] args) {
-        String importPath = "C:\\sw\\zli\\javaTrains\\aoc_2024\\2024_d1.txt";
+
+        String importPath = System.getProperty("user.dir");
+        File file = new File(importPath);
+        String puzzelInput = "2024_d1.txt";
+        String puzzelInputPath = "";
+        puzzelInputPath = aocFunctions.FindFileByName(file, puzzelInput, puzzelInputPath);
         List<String> exportStringList = new ArrayList();
-        exportStringList = readFile(importPath, exportStringList);
+        exportStringList = aocFunctions.readFile(puzzelInputPath, exportStringList);
 
         List<String> listLeft = new ArrayList();
         List<String> listRight = new ArrayList();
