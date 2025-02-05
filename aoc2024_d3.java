@@ -2,7 +2,11 @@
 // read
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+// collection
+import java.util.Collections;
 
 import aoc_2024_src.aocFunctions;
 
@@ -52,13 +56,11 @@ public class aoc2024_d3 {
         return o_mulList;
     }
 
-
-
     public static void main(String[] args) {
         String importPath = System.getProperty("user.dir");
         File file = new File(importPath);
-        // String puzzelInput = "2024_d3.txt";
-        String puzzelInput = "2024_d3_tst.txt";
+        String puzzelInput = "2024_d3.txt";
+        // String puzzelInput = "2024_d3_tst.txt";
         String puzzelInputPath = "";
         puzzelInputPath = aocFunctions.FindFileByName(file, puzzelInput, puzzelInputPath);
         List<String> exportStringList = new ArrayList();
@@ -109,22 +111,35 @@ public class aoc2024_d3 {
         muListPos = regularExpPos(regex, result);
 
         System.out.println(muListPos);
-        int validPos = 1;
         List<Integer> validList  = new ArrayList<Integer>();        
+        // minial abs
         for(int j = 0; j < muListPos.size(); j++){
-            if (j == 0) {
-                validList.add(validPos);
-                continue;
+            // int doAbs = muListPos.get(j) - doList.get(0);
+            int doAbs = 999999999;
+            for (int doEle: doList){
+                if (doAbs > muListPos.get(j) - doEle && muListPos.get(j) - doEle > 0)
+                    doAbs = muListPos.get(j) - doEle;
             }
-            else{
-                for (int i = 0; i < dontList.size(); i++){
-                    if (muListPos.get(j)>dontList.size() ){
-
-                    }
-                }
+            // int dontAbs = muListPos.get(j) - dontList.get(0);
+            int dontAbs = 999999999;
+            for (int dontEle : dontList) {
+                if (dontAbs > muListPos.get(j) - dontEle && muListPos.get(j) - dontEle > 0)
+                    dontAbs = muListPos.get(j) - dontEle;
             }
+            if (j == 0) 
+                validList.add(1);
+            else if(dontAbs<doAbs) validList.add(0);
+            else if (dontAbs>doAbs) validList.add(1);
+            else if (dontAbs == doAbs)
+                validList.add(1);
+            else System.out.println("pipapooo");
         }
 
+        sum = 0;
+        for (int i = 0; i < resultList.size(); i++) {
+            sum = sum + resultList.get(i) * validList.get(i); 
+        }
+        System.out.println(sum);
 
         
     }
