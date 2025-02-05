@@ -115,13 +115,13 @@ public class aoc2024_d3 {
         // minial abs
         for(int j = 0; j < muListPos.size(); j++){
             // int doAbs = muListPos.get(j) - doList.get(0);
-            int doAbs = 999999999;
+            int doAbs = 2147483647;
             for (int doEle: doList){
                 if (doAbs > muListPos.get(j) - doEle && muListPos.get(j) - doEle > 0)
                     doAbs = muListPos.get(j) - doEle;
             }
             // int dontAbs = muListPos.get(j) - dontList.get(0);
-            int dontAbs = 999999999;
+            int dontAbs = 2147483647;
             for (int dontEle : dontList) {
                 if (dontAbs > muListPos.get(j) - dontEle && muListPos.get(j) - dontEle > 0)
                     dontAbs = muListPos.get(j) - dontEle;
