@@ -56,6 +56,24 @@ public class aoc2024_d4 {
         return o_mulList;
     }
 
+    private static int horizonalXmas(List<String> i_List, String i_xmas){
+        int horizonalXmas = 0;
+        for (int j = 0; j < i_List.size(); j++){
+            for (int k = 0; k < i_List.get(j).length(); k++){
+                if(i_xmas.charAt(0) == i_List.get(j).charAt(k)){
+                    if(i_xmas.charAt(0+1) == i_List.get(j).charAt(k+1)){
+                        if(i_xmas.charAt(0+2) == i_List.get(j).charAt(k+2)){
+                            if(i_xmas.charAt(0+3) == i_List.get(j).charAt(k+3)){
+                                horizonalXmas++; 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         String importPath = System.getProperty("user.dir");
         File file = new File(importPath);
@@ -67,7 +85,14 @@ public class aoc2024_d4 {
         exportStringList = aocFunctions.readFile(puzzelInputPath, exportStringList);
 
         //// 2024_d4_step_1
-        //
+        for (int i = 0; i < exportStringList.size(); i++){
+            for (int j = 0; j < exportStringList.get(i).length(); j++){
+                System.out.println("matrix: " + exportStringList.get(i).charAt(j));
+            }
+        }
+
+
+
 
     }
 }
