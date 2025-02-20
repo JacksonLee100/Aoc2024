@@ -58,21 +58,16 @@ public class aoc2024_d4 {
 
     private static int horizonalXmas(List<String> i_List, String i_xmas){
         int horizonalXmas = 0;
-        for (int j = 0; j < i_List.size(); j++){
-            for (int k = 0; k < i_List.get(j).length(); k++){
-                if(i_xmas.charAt(0) == i_List.get(j).charAt(k)){
-                    if(i_xmas.charAt(0+1) == i_List.get(j).charAt(k+1)){
-                        if(i_xmas.charAt(0+2) == i_List.get(j).charAt(k+2)){
-                            if(i_xmas.charAt(0+3) == i_List.get(j).charAt(k+3)){
-                                horizonalXmas++; 
-                            }
-                        }
-                    }
-                }
+        for (String Line: i_List){
+            Pattern pattern = Pattern.compile(i_xmas);
+            Matcher matcher = pattern.matcher(Line);
+            while (matcher.find()) {
+                horizonalXmas++;
             }
-        }
-
+        }  
+        return horizonalXmas;
     }
+
 
     public static void main(String[] args) {
         String importPath = System.getProperty("user.dir");
@@ -87,12 +82,95 @@ public class aoc2024_d4 {
         //// 2024_d4_step_1
         for (int i = 0; i < exportStringList.size(); i++){
             for (int j = 0; j < exportStringList.get(i).length(); j++){
-                System.out.println("matrix: " + exportStringList.get(i).charAt(j));
+                // System.out.println("matrix: " + exportStringList.get(i).charAt(j));
             }
+        }
+
+        String i_xmas = "XMAS";
+        String i_samx = "SAMX";
+
+        int horizonXmas = horizonalXmas(exportStringList, i_xmas);
+        int horizonSamx = horizonalXmas(exportStringList, i_samx);
+
+        System.out.println("\n"+"horizonXmas: " + (horizonXmas+horizonSamx) );
+        
+        // Find the maximum length of the strings to know how many columns we need
+        int maxLength = exportStringList.stream()
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
+
+        // Create a new list to hold the transposed result
+        List<String> transposedList = new ArrayList<>();
+
+        // Loop through each column index
+        for (int col = 0; col < maxLength; col++) {
+            StringBuilder sb = new StringBuilder();
+
+            // Loop through each row (string) and get the character at the current column
+            // index
+            for (String str : exportStringList) {
+                if (col < str.length()) {
+                    sb.append(str.charAt(col)); // Append the character at the column index
+                }
+            }
+
+            // Add the result to the transposed list
+            transposedList.add(sb.toString());
+        }
+
+        // Output the transposed list
+        System.out.println(transposedList);
+
+        int vertXmas = horizonalXmas(transposedList, i_xmas);
+        int vertSamx = horizonalXmas(transposedList, i_samx);
+
+        System.out.println("\n" + "vertXmas: " + (vertXmas + vertSamx));
+
+        // diagonal list
+        List<String> diagonalList = new ArrayList<>();
+        for (int i = 0; i < exportStringList.size(); i++){
+            StringBuilder diagonEle = new StringBuilder();
+            int diagonalInt = i;
+            for (String str : exportStringList){
+                if (diagonalInt >= str.length()) break;
+                diagonEle.append(str.charAt(diagonalInt));
+                diagonalInt++;    
+            }
+            diagonalList.add(diagonEle.toString());
+            diagonEle = new StringBuilder();
+            if (i-1<0) continue;
+            for ( int j = i; j < exportStringList.get(i).length(); j++){
+                diagonEle.append(exportStringList.get(j).charAt(j-1));
+            }
+            diagonalList.add(diagonEle.toString());
+        }
+
+        for (int i = exportStringList.size()-1; i > -1; i--) {
+            StringBuilder diagonEle = new StringBuilder();
+            int diagonalInt = i;
+            for (String str : exportStringList) {
+                if (diagonalInt < 0)
+                    break;
+                diagonEle.append(str.charAt(diagonalInt));
+                diagonalInt--;
+            }
+            diagonalList.add(diagonEle.toString());
+            diagonEle = new StringBuilder();
+            if (i  == exportStringList.get(i).length()-1)
+                continue;
+            for (int j = i; j > -1; j--) {
+                diagonEle.append(exportStringList.get(j).charAt(j + 1));
+            }
+            diagonalList.add(diagonEle.toString());
         }
 
 
 
+        System.out.println(diagonalList);
+        int diagonXmas = horizonalXmas(diagonalList, i_xmas);
+        int diagonSamx = horizonalXmas(diagonalList, i_samx);
 
+        System.out.println("\n" + "diagonXmas: " + (diagonXmas + diagonSamx));
     }
 }
