@@ -73,7 +73,7 @@ public class aoc2024_d4 {
         String importPath = System.getProperty("user.dir");
         File file = new File(importPath);
         // String puzzelInput = "2024_d4.txt";
-        String puzzelInput = "2024_d4_tst.txt";
+        String puzzelInput = "2024_d4.txt";
         String puzzelInputPath = "";
         puzzelInputPath = aocFunctions.FindFileByName(file, puzzelInput, puzzelInputPath);
         List<String> exportStringList = new ArrayList();
@@ -128,6 +128,7 @@ public class aoc2024_d4 {
         System.out.println("\n" + "vertXmas: " + (vertXmas + vertSamx));
 
         // diagonal list
+        int k  = 0;
         List<String> diagonalList = new ArrayList<>();
         for (int i = 0; i < exportStringList.size(); i++){
             StringBuilder diagonEle = new StringBuilder();
@@ -141,11 +142,13 @@ public class aoc2024_d4 {
             diagonEle = new StringBuilder();
             if (i-1<0) continue;
             for ( int j = i; j < exportStringList.get(i).length(); j++){
-                diagonEle.append(exportStringList.get(j).charAt(j-1));
+                diagonEle.append(exportStringList.get(j).charAt(j-k-1));
             }
             diagonalList.add(diagonEle.toString());
+            k++;
         }
 
+        int j = 0;
         for (int i = exportStringList.size()-1; i > -1; i--) {
             StringBuilder diagonEle = new StringBuilder();
             int diagonalInt = i;
@@ -157,12 +160,18 @@ public class aoc2024_d4 {
             }
             diagonalList.add(diagonEle.toString());
             diagonEle = new StringBuilder();
-            if (i  == exportStringList.get(i).length()-1)
+            diagonalInt = exportStringList.get(i).length();
+            if (diagonalInt  == exportStringList.get(i).length()-1)
                 continue;
-            for (int j = i; j > -1; j--) {
-                diagonEle.append(exportStringList.get(j).charAt(j + 1));
+            for (String str : exportStringList) {
+                if (diagonalInt-1 >= i ){
+                    diagonalInt--;}
+                else{
+                diagonEle.append(str.charAt(diagonalInt+j));
+                diagonalInt--;}
             }
             diagonalList.add(diagonEle.toString());
+            j++;
         }
 
 
@@ -172,5 +181,6 @@ public class aoc2024_d4 {
         int diagonSamx = horizonalXmas(diagonalList, i_samx);
 
         System.out.println("\n" + "diagonXmas: " + (diagonXmas + diagonSamx));
+        System.out.println("\n" + "Samt: " + (horizonXmas + horizonSamx + vertXmas + vertSamx + diagonXmas + diagonSamx));
     }
 }
